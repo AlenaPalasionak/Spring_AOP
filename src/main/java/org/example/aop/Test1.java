@@ -1,6 +1,5 @@
 package org.example.aop;
 
-import org.example.aop.aspects.SchoolLibrary;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Test1 {

@@ -1,4 +1,4 @@
-package org.example.aop.aspects;
+package org.example.aop;
 
 public abstract class AbstractLibrary {
     abstract public void getBook();
