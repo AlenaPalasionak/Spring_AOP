@@ -9,30 +9,19 @@ import org.springframework.stereotype.Component;
 @Aspect// класс будет осуществлять сквозную функциональность
 public class LoggingAndSecurityAspect {
 
-    @Pointcut("execution(* org.example.aop.UniLibrary.get*())")
-    private void allGetMethodsFromUniLibrary() {
+    @Pointcut("execution(* org.example.aop.UniLibrary.*(..))")      // любые методы
+    private void allMethodsFromUniLibrary() {
     }
 
-    @Pointcut("execution(* org.example.aop.UniLibrary.return*())")
-    private void allReturnMethodsFromUniLibrary() {
+    @Pointcut("execution(public void org.example.aop.UniLibrary.returnMagazine())")     // один определенный метод
+    private void returnMagazineFromUniLibrary() {
     }
 
-    @Pointcut("allGetMethodsFromUniLibrary() || allReturnMethodsFromUniLibrary()")
-    private void allGetAndReturnMethodsFromUniLibrary() {
+    @Pointcut("allMethodsFromUniLibrary() && !returnMagazineFromUniLibrary()")      // из всех методов исключаем один
+    private void allMethodsExceptReturnMagazineFromUniLibrary() {
     }
-
-    @Before("allGetMethodsFromUniLibrary()")
-    public void beforeGetLoggingAdvice() {
-        System.out.println("beforeGetLoggingAdvice: writing Log #1");
-    }
-
-    @Before("allReturnMethodsFromUniLibrary()")
-    public void beforeReturnLoggingAdvice() {
-        System.out.println("beforeReturnLoggingAdvice: writing Log #2");
-    }
-
-    @Before("allGetAndReturnMethodsFromUniLibrary()")
-    public void beforeGetAndReturnMethodsFromUniLibrary() {
-        System.out.println("beforeGetAndReturnMethodsFromUniLibrary: writing Log #3");
+    @Before("allMethodsExceptReturnMagazineFromUniLibrary())")      // используем исключающий поинткат, чтобы только перед одним методом не печатался advice
+    public void beforeAllMethodsExceptReturnMagazineAdvice() {
+        System.out.println("beforeAllMethodsExceptReturnMagazineAdvice: writing Log #10");
     }
 }
