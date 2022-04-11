@@ -19,6 +19,8 @@ public class University {
         studentList.add(st3);
     }
     public List<Student> getStudents(){
+        System.out.println("Начало работы метода getStudents()");
+        System.out.println(studentList.get(3));
         System.out.println("Information from method getStudents");
         System.out.println(studentList);
         return studentList;
