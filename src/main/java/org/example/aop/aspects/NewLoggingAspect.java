@@ -10,18 +10,19 @@ import org.springframework.stereotype.Component;
 public class NewLoggingAspect {
     @Around("execution(public String returnBook())")
     public Object aroundReturnBookLoggingAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {    //ProceedingJoinPoint - связь с таргет
-        // методом, с помощью proceedingJoinPoint мы будем вручную запускать таргет метод изэтого аспектного метода. Таргет метод возвращает String,
-        // вернем Object, т.к. proceedingJoinPoint.proceed() - вернет Object
+
         System.out.println("aroundReturnBookLoggingAdvice: в библиотеку ПЫТАЮТСЯ вернуть книгу");
 
-        Long begin = System.currentTimeMillis();
-        Object targetMethodResult = proceedingJoinPoint.proceed();
-        targetMethodResult = "Преступление и наказание";//меняем возвращаемое значение таргет метода public String returnBook()
-        Long end = System.currentTimeMillis();
+        Object targetMethodResult = null;
+        try{
+             targetMethodResult = proceedingJoinPoint.proceed();
+        }
+        catch (Exception e) {   //обработка исключения внутри адвайса, метод мэйн не вкурсе исключения. Лучше так не делать
+            System.out.println("aroundReturnBookLoggingAdvice: было поймано исключение" + e);
+            targetMethodResult = "Неизвестное название книги";
+        }
 
         System.out.println("aroundReturnBookLoggingAdvice: в библиотеку успешно ВЕРНУЛИ книгу");
-        System.out.println("aroundReturnBookLoggingAdvice: метод выполнил работу за " + (end - begin) + " милисекунд(ы)");
-
         return targetMethodResult;
     }
 }
