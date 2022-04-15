@@ -19,9 +19,10 @@ public class NewLoggingAspect {
         }
         catch (Exception e) {   //обработка исключения внутри адвайса, метод мэйн не вкурсе исключения. Лучше так не делать
             System.out.println("aroundReturnBookLoggingAdvice: было поймано исключение" + e);
-            targetMethodResult = "Неизвестное название книги";
+            throw e;
         }
-
+//если в таргет методе выбросится исключение, то мы его словим в методе-адвайсе выше и пробросим в мэйн, строчки
+        // кода ниже не сработают
         System.out.println("aroundReturnBookLoggingAdvice: в библиотеку успешно ВЕРНУЛИ книгу");
         return targetMethodResult;
     }

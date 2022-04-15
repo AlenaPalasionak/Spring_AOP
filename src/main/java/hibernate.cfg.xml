@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration> <!-- конфиг файл определеяет, как hibernate будет подключаться к базе данных-->
+    <session-factory><!-- создание сессии для  подключения нашего прилож. к базе данных. Ниже параметры соединения-->
+        <property name="connection.url">jdbc:mysql://localhost:3306/my_db?useSSL=false&amp;serverTimezone=UTC</property><!--где находится база-->
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property><!-- наш драйвер, кот. мы добавили в проект-->
+        <property name="connection.username">bestuser</property><!--имя-->
+        <property name="connection.password">bestuser</property><!--пароль -->
+
+        <property name="current_session_context_class">thread</property><!-- нить. когда создадим сессию для связи с бд., сессия будет привязана к трэду, в котором мы создаем сессию-->
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property><!--бывают разные стандарты для работы с базой данных у mysql свой, у оракл другой...-->
+        <property name="show_sql">true</property><!--фича полезна для тестир. и отслеживания, в консоли будем видеть sql запросы -->
+
+    </session-factory>
+</hibernate-configuration>
