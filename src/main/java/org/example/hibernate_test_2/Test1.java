@@ -17,16 +17,19 @@ public class Test1 {
                 .buildSessionFactory();
         Session session = null;
         try {
-             session = factory.getCurrentSession();
+            session = factory.getCurrentSession();
 
             session.beginTransaction();
-            Employee employee1 = session.get(Employee.class, 1);
-            System.out.println(employee1.getEmpDetail());
+            Employee employee2 = session.get(Employee.class, 2);
+            session.delete(employee2);// Поскольку у нас аннотация с типом каскейд: @OneToOne(cascade = CascadeType.ALL),
+            //удалятся и зависящие детали из другой таблицы.
+
             session.getTransaction().commit();//закрыли транзакцию
             System.out.println("Done");
+
         } finally {
             session.close();//закрываем сессию тут, если вдруг будет исключение, то избежим connection leak
-        factory.close();
+            factory.close();
 
         }
 
