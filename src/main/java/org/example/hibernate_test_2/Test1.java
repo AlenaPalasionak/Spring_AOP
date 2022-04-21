@@ -15,23 +15,20 @@ public class Test1 {
                 .addAnnotatedClass(Employee.class)//прописываем класс который имеет аннотации для работы с БД
                 .addAnnotatedClass(Detail.class)
                 .buildSessionFactory();
-try {
-    Session session = factory.getCurrentSession();
+        Session session = null;
+        try {
+             session = factory.getCurrentSession();
 
-    Employee employee = new Employee("Oleg", "Smirnov", "Sales", 700);
+            session.beginTransaction();
+            Employee employee1 = session.get(Employee.class, 1);
+            System.out.println(employee1.getEmpDetail());
+            session.getTransaction().commit();//закрыли транзакцию
+            System.out.println("Done");
+        } finally {
+            session.close();//закрываем сессию тут, если вдруг будет исключение, то избежим connection leak
+        factory.close();
 
-    Detail detail = new Detail("Moskow", 38472834, "olejka@tut.by");
-    employee.setEmpDetail(detail);
-    session.beginTransaction();
-
-    session.save(employee);
-
-    session.getTransaction().commit();//закрыли транзакцию
-    System.out.println("Done");
-}
-finally {
-    factory.close();
-}
+        }
 
     }
 }
