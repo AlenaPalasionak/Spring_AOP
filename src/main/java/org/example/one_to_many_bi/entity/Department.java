@@ -10,7 +10,7 @@ public class Department {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy =GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "name")
@@ -22,7 +22,8 @@ public class Department {
     @Column(name = "max_salary")
     private int maxSalary;
 
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "department", cascade = {CascadeType.PERSIST, CascadeType.REFRESH
+            , CascadeType.MERGE, CascadeType.DETACH})
     private List<Employee> emps;
 
     public Department() {

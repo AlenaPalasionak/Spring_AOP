@@ -18,17 +18,18 @@ public class Test1 {
         Session session = null;
         try {
             session = factory.getCurrentSession();
-            Department department = new Department("IT", 300, 5000);
-            Employee emp1 = new Employee("Lena", "Palasionak", 500);
-            Employee emp2 = new Employee("Zaur", "Tregulov", 4500);
+//            Department department = new Department("IT", 300, 5000);
+//            Employee emp1 = new Employee("Lena", "Palasionak", 500);
+//            Employee emp2 = new Employee("Zaur", "Tregulov", 4500);
+
 
             session.beginTransaction();
-
-            department.addEmployeeToDepartment(emp1);
-            department.addEmployeeToDepartment(emp2);
-
-            session.save(department);
-
+//            department.addEmployeeToDepartment(emp1);
+//            department.addEmployeeToDepartment(emp2);
+//
+//            session.save(department);
+            Employee employee = session.get(Employee.class, 4);
+            session.delete(employee);
             session.getTransaction().commit();//закрыли транзакцию
             System.out.println("Done");
 
