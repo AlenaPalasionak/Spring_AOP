@@ -1,13 +1,13 @@
-package org.example.hibernate_test_2;
+package org.example.hibernate_one_to_one;
 
-import org.example.hibernate_test_2.entity.Detail;
-import org.example.hibernate_test_2.entity.Employee;
+import org.example.hibernate_one_to_one.entity.Detail;
+import org.example.hibernate_one_to_one.entity.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 
-public class Test1 {
+public class Test2 {
     public static void main(String[] args) {
         //чтобы иметь связь с базой данных нужно получить сессию
         SessionFactory factory = new Configuration()//один раз создаем и можно переиспользовать
@@ -20,9 +20,10 @@ public class Test1 {
             session = factory.getCurrentSession();
 
             session.beginTransaction();
-            Employee employee2 = session.get(Employee.class, 2);
-            session.delete(employee2);// Поскольку у нас аннотация с типом каскейд: @OneToOne(cascade = CascadeType.ALL),
-            //удалятся и зависящие детали из другой таблицы.
+
+            Detail detail =session.get(Detail.class, 1);
+            detail.getEmployee().setEmpDetail(null);//чтобы удалить необходимо разрушить отношения между таблицами
+            session.delete(detail);
 
             session.getTransaction().commit();//закрыли транзакцию
             System.out.println("Done");
@@ -30,8 +31,6 @@ public class Test1 {
         } finally {
             session.close();//закрываем сессию тут, если вдруг будет исключение, то избежим connection leak
             factory.close();
-
         }
-
     }
 }
