@@ -5,8 +5,11 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "details")
-
 public class Detail {
+
+    @OneToOne(mappedBy = "empDetail", cascade = CascadeType.ALL)// мы уже один раз прописали связь между классами: @JoinColumn(name = "details_id")
+    //hibernate должен поискать связь в описании empDetail класса Employee
+    private Employee employee;
 
     @Id
     @Column(name = "id")
@@ -61,6 +64,14 @@ public class Detail {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     @Override
