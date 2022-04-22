@@ -20,9 +20,9 @@ public class Test2 {
             session = factory.getCurrentSession();
 
             session.beginTransaction();
-            Detail detail =session.get(Detail.class, 4);
-            System.out.println(detail.getEmployee());
 
+            Detail detail =session.get(Detail.class, 4);
+            session.delete(detail);
 
             session.getTransaction().commit();//закрыли транзакцию
             System.out.println("Done");
