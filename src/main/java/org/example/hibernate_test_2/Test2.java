@@ -20,13 +20,9 @@ public class Test2 {
             session = factory.getCurrentSession();
 
             session.beginTransaction();
-            Employee employee = new Employee("Nikolaj", "Ivanov", "HR", 300);
-            Detail detail = new Detail("Polotsk", 98748430, "Nick@tut.by");
-//нужно сначала работнику назначить детали, а потом деталям работника, тогда в таблице не будет null
-            employee.setEmpDetail(detail);
-            detail.setEmployee(employee);
+            Detail detail =session.get(Detail.class, 4);
+            System.out.println(detail.getEmployee());
 
-            session.save(detail);
 
             session.getTransaction().commit();//закрыли транзакцию
             System.out.println("Done");
