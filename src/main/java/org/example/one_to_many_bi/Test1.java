@@ -21,9 +21,8 @@ public class Test1 {
             session.beginTransaction();
 
            Employee employee = session.get(Employee.class, 1);
-
-            System.out.println(employee);
-            System.out.println(employee.getDepartment());
+           session.delete(employee);// из-за каскадного удаления удалится сначала работник, потом его департамент, а потом остальные
+            //работники департамента
 
             session.getTransaction().commit();//закрыли транзакцию
             System.out.println("Done");
