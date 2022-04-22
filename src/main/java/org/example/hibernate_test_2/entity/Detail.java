@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Table(name = "details")
 public class Detail {
 
-    @OneToOne(mappedBy = "empDetail", cascade = CascadeType.ALL)// мы уже один раз прописали связь между классами: @JoinColumn(name = "details_id")
+    @OneToOne(mappedBy = "empDetail", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})// мы уже один раз прописали связь между классами: @JoinColumn(name = "details_id")
     //hibernate должен поискать связь в описании empDetail класса Employee
     private Employee employee;
 
