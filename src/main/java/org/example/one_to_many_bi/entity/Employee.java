@@ -8,46 +8,31 @@ import javax.persistence.*;
 @Table(name = "employees")
 public class Employee {
 
-    @OneToOne(cascade = CascadeType.ALL) //между Employee и Datail будет OneToOne отношение
-    @JoinColumn(name = "details_id")// столбец details_id будет внешним ключом, который ссылется на запись id в таблице Datails
-    private Detail empDetail;
-
     @Id //это поле будет primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private int id;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String firstname;
 
-    @Column(name="Surname")
+    @Column(name = "Surname")
     private String surname;
 
-    @Column(name="department")
-    private String department;
-
-    @Column(name="salary")
+    @Column(name = "salary")
     private int salary;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "department_id")
+    private Department department;
 
     public Employee() {
     }
 
-    public Employee(String name, String surname, String department, int salary) {
-        this.firstname = name;
+    public Employee(String firstname, String surname, int salary) {
+        this.firstname = firstname;
         this.surname = surname;
-        this.department = department;
         this.salary = salary;
-    }
-
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id='" + id + '\'' +
-                ", name='" + firstname + '\'' +
-                ", surname='" + surname + '\'' +
-                ", department='" + department + '\'' +
-                ", salary=" + salary +
-                '}';
     }
 
     public int getId() {
@@ -74,14 +59,6 @@ public class Employee {
         this.surname = surname;
     }
 
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
     public int getSalary() {
         return salary;
     }
@@ -90,11 +67,25 @@ public class Employee {
         this.salary = salary;
     }
 
-    public Detail getEmpDetail() {
-        return empDetail;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setEmpDetail(Detail empDetail) {
-        this.empDetail = empDetail;
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", surname='" + surname + '\'' +
+                ", salary=" + salary +
+                '}';
     }
 }
+
+
+
+

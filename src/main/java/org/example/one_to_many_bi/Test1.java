@@ -1,7 +1,7 @@
 package org.example.one_to_many_bi;
 
-import org.example.hibernate_one_to_one.entity.Detail;
-import org.example.hibernate_one_to_one.entity.Employee;
+import org.example.one_to_many_bi.entity.Department;
+import org.example.one_to_many_bi.entity.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -13,16 +13,21 @@ public class Test1 {
         SessionFactory factory = new Configuration()//один раз создаем и можно переиспользовать
                 .configure("hibernate.cfg.xml")// чтобы сессия прочитала файл конфигурации
                 .addAnnotatedClass(Employee.class)//прописываем класс который имеет аннотации для работы с БД
-                .addAnnotatedClass(Detail.class)
+                .addAnnotatedClass(Department.class)
                 .buildSessionFactory();
         Session session = null;
         try {
             session = factory.getCurrentSession();
+            Department department = new Department("IT", 300, 5000);
+            Employee emp1 = new Employee("Lena", "Palasionak", 500);
+            Employee emp2 = new Employee("Zaur", "Tregulov", 4500);
 
             session.beginTransaction();
-            Employee employee2 = session.get(Employee.class, 2);
-            session.delete(employee2);// Поскольку у нас аннотация с типом каскейд: @OneToOne(cascade = CascadeType.ALL),
-            //удалятся и зависящие детали из другой таблицы.
+
+            department.addEmployeeToDepartment(emp1);
+            department.addEmployeeToDepartment(emp2);
+
+            session.save(department);
 
             session.getTransaction().commit();//закрыли транзакцию
             System.out.println("Done");
