@@ -22,7 +22,7 @@ public class Department {
     @Column(name = "max_salary")
     private int maxSalary;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)// работники будут удаляться каскадно, если удалим департамент
     @JoinColumn(name = "department_id")
     private List<Employee> emps;
 
