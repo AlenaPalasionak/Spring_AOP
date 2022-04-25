@@ -22,7 +22,7 @@ public class Department {
     @Column(name = "max_salary")
     private int maxSalary;
 
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Employee> emps;
 
     public Department() {
