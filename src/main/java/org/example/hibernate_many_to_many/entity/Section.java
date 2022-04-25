@@ -16,6 +16,10 @@ public class Section {
     @Column(name = "name")
     private String name;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "child_section"
+    , joinColumns = @JoinColumn(name = "section_id")
+    , inverseJoinColumns = @JoinColumn(name = "child_id"))
     private List<Child> childList;
 
     public Section() {
@@ -48,6 +52,7 @@ public class Section {
     public void setName(String name) {
         this.name = name;
     }
+
     public void addChildToSection(Child child) {
         if(childList == null) {
             childList = new ArrayList<>();
