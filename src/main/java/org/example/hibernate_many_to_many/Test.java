@@ -16,25 +16,26 @@ public class Test {
             .buildSessionFactory();
 
     Session session = null;
-    try{
+    try {
 //Добавление детей в секцию
 //        session = factory.getCurrentSession();
 //
-//        Section section1 = new Section("Football");
-//        Child child1 = new Child("Tom", 7);
-//        Child child2 = new Child("Kate", 10);
-//        Child child3 = new Child("Bob", 6);
+//        Section section1 = new Section("Dance");
+//        Child child1 = new Child("Pat", 3);
+//        Child child2 = new Child("Mat", 14);
+//        Child child3 = new Child("Rob", 5);
 //
 //        section1.addChildToSection(child1);
 //        section1.addChildToSection(child2);
 //        section1.addChildToSection(child3);
 //
 //        session.beginTransaction();
-//        session.save(section1);
+//        session.persist(section1);
 //
 //        session.getTransaction().commit();
 //
 //        System.out.println("Done");
+//    }
         //********************************************************************************************************
 //Добавление секций ребенку
 //        session = factory.getCurrentSession();
@@ -58,14 +59,51 @@ public class Test {
 //        System.out.println("Done");
         //*****************************************************************************
 //Получение инф. из таблиц БД
+//        session = factory.getCurrentSession();
+//
+//
+//        session.beginTransaction();
+//
+//        Section section = session.get(Section.class, 1);
+//        System.out.println(section);
+//        System.out.println(section.getChildList());
+//
+//        session.getTransaction().commit();
+//
+//        System.out.println("Done");
+        //*********************************************************************************
+//Удаление секции
+//        session = factory.getCurrentSession();
+//
+//
+//        session.beginTransaction();
+//
+//        Section section = session.get(Section.class, 1);
+//        session.delete(section);
+//
+//        session.getTransaction().commit();
+//
+//        System.out.println("Done");
+//    }
+        //******************************************************************************
+//Удаление секции 2
+//        session = factory.getCurrentSession();
+//        session.beginTransaction();
+//       Section section = session.get(Section.class, 7);
+//       session.delete(section);
+//
+//
+//        session.getTransaction().commit();
+//
+//        System.out.println("Done");
+//    }
+    //******************************************************************************
+//Отчисляем ребенка из секции
         session = factory.getCurrentSession();
-
-
         session.beginTransaction();
+        Child child = session.get(Child.class, 4);
+        session.delete(child);
 
-        Section section = session.get(Section.class, 1);
-        System.out.println(section);
-        System.out.println(section.getChildList());
 
         session.getTransaction().commit();
 
